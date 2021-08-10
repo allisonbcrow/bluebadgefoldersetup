@@ -1,20 +1,20 @@
-let express = require("express");
-const app = express();
-let journal = require('./controllers/journalcontroller')
+require('dotenv').config;
+let express = require('express');
+let app = express();
+let sequelize = require('./db');
 
-// app.use("/test", function(req,res){
-//     res.send("This is a message from the test endpoint on the server!");
-// });
+let user = require('./controllers/usercontroller');
+let journal = require('./controllers/journalcontroller');
 
-// app.use("/allison", function(req,res){
-//     res.send("My name is Allison and I'm 26 years old.")
-// });
+sequelize.sync();
 
-// Have endpoint of journal/practice
-// Send a response from the endpoint
+app.use(require('./middleware/headers'));
 
+app.use(express.json());
 app.use('/journal', journal);
+
+app.use('/user', user);
 
 app.listen(3000, function () {
     console.log("App is listening on port 3000");
-});
+})
