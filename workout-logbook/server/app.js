@@ -8,12 +8,14 @@ let user = require('./controllers/usercontroller');
 
 sequelize.sync();
 // sequelize.sync({force: true})
+app.use(require('./middleware/headers'));
 
 app.use(express.json());
 
+
 app.use('/user', user);
 
-app.use(require('./middleware/validate-session'));
+app.use(require('./middleware'));
 app.use('/log', log);
 
 app.listen(3000, function () {
