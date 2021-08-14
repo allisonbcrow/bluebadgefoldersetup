@@ -8,7 +8,7 @@ router.get('/practice', validateSession, function(req,res)
     res.send("Hey!! This is a practice route!")
 });
 
-router.post('/log', validateSession, (req, res) => {
+router.post('/', validateSession, (req, res) => {
     const logEntry = {
         description: req.body.log.description,
         definition: req.body.log.definition,
@@ -20,13 +20,16 @@ router.post('/log', validateSession, (req, res) => {
     .catch(err => res.status(500).json({ error: err }))
 });
 
-router.get('/log', (req, res) => {
-    Log.findAll()
+router.get("/mine", validateSession, (req, res) => {
+    let userid = req.user.id
+    Log.findAll({
+        where: { owner_id: userid }
+    })
     .then(logs => res.status(200).json(logs))
-    .catch(err => res.status(500).json({ error: err }))
+    .catch(err => res.status(500).json({ error:err }))
 });
 
-router.get("/log/:id", validateSession, (req, res) => {
+router.get("/:id", validateSession, (req, res) => {
    let userid = req.user.id
     Log.findAll({
         where: {  owner_id: userid }
@@ -36,7 +39,7 @@ router.get("/log/:id", validateSession, (req, res) => {
 });
 
 
-router.put("/log/:id", validateSession, function (req, res) {
+router.put("/:id", validateSession, function (req, res) {
     const updateLogEntry = {
         description: req.body.log.description,
         definition: req.body.log.definition,
@@ -51,12 +54,13 @@ router.put("/log/:id", validateSession, function (req, res) {
     .catch((err) => res.status(500).json({ error: err }));
 });
 
-router.delete("/log/:id", validateSession, function (req,res) {
+router.delete("/:id", validateSession, function (req,res) {
     const query = { where: {id: req.params.id, owner_id: req.user.id } };
 
     Log.destroy(query)
     .then(() => res.status(200).json({message: "Log Entry Removed" }))
     .catch((err) => res.status(500).json({ error: err }));
 });
+
 
 module.exports = router;
