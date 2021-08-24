@@ -3,9 +3,13 @@ import './App.css';
 // import Header from './components/Day1/Header';
 // import AboutMe from "./components/Day1/AboutMe";
 // import Footer from "./components/Day1/footer"
-import State from './components/Day1/State'
-import Effect from './components/Day1/Effect';
-import TenLittleMonkeys from './components/Day1/TenLittleMonkeys';
+// import State from './components/Day1/State'
+// import Effect from './components/Day1/Effect';
+// import TenLittleMonkeys from './components/Day1/TenLittleMonkeys';
+// import Example from "./components/Day3/Example";
+// import Userinput from './components/Day3/Userinput';
+// import Challenge from './components/Day3/Challenge';
+import ApiForm from "./components/Day4/ApiForm";
 
 function App() {
   // const name = "Allison";
@@ -37,9 +41,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <State />
-      <Effect /> */}
-      <TenLittleMonkeys />
+ <ApiForm />
       </div>
   );
 }
